@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = $_POST['message'];
 
     // Send email
-    $to = 'pausantanapi2@gmail.com'; // Replace with your email address
+    $to = 'pausantanapi2@gmail.com';
     $headers = "From: $name <$email>";
     $body = "Subject: $subject\n\n$message";
 
