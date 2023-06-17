@@ -16,13 +16,11 @@ A personal portfolio website to showcase my skills, projects, and achievements. 
 
 ## Usage 🚀
 
-1. Clone this repository.
-2. Open `index.html` in your preferred web browser.
-3. Explore the portfolio and get to know more about me and my work.
+1. Open psantana5.github.io in your browser.
 
 ## Feedback 💌
 
-If you have any suggestions, feedback, or would like to get in touch, feel free to reach out to me via the contact form on my portfolio.
+If you have any suggestions, feedback, or would like to get in touch, feel free to reach out to me via the contacts on my portfolio.
 
 ## License 📝
 
