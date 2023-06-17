@@ -1,71 +1,53 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'C:\Users\msali\Downloads\PHPMailer-master\src\Exception.php';
-require 'C:\Users\msali\Downloads\PHPMailer-master\src\PHPMailer.php';
-require 'C:\Users\msali\Downloads\PHPMailer-master\src\SMTP.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data and sanitize inputs
-    $name = isset($_POST['name']) ? sanitizeInput($_POST['name']) : '';
-    $email = isset($_POST['email']) ? sanitizeInput($_POST['email']) : '';
-    $subject = isset($_POST['subject']) ? sanitizeInput($_POST['subject']) : '';
-    $message = isset($_POST['message']) ? sanitizeInput($_POST['message']) : '';
+    $name = sanitizeInput($_POST['name']);
+    $email = sanitizeInput($_POST['email']);
+    $subject = sanitizeInput($_POST['subject']);
+    $message = sanitizeInput($_POST['message']);
 
     // Validate inputs
-    if (empty($name) || empty($email) || empty($subject) || empty($message)) {
-        echo 'Please fill in all the required fields.';
-        exit;
+    $requiredFields = array('name', 'email', 'subject', 'message');
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            echo 'Please fill in all the required fields.';
+            exit;
+        }
     }
 
-    // Create a new PHPMailer instance
-    $mail = new PHPMailer(true);
+    // Set recipient email and prepare email headers
+    $to = 'pausantanapi2@outlook.es';
+    $subject = "Contact Form Submission: $subject";
+    $headers = "From: $name <$email>\r\n";
+    $headers .= "Reply-To: $name <$email>\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-    try {
-        // SMTP configuration
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'pausantanapi2@gmail.com'; // Your Gmail email address
-        $mail->Password = 'safe password :)'; // Your Gmail password
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+    // Prepare email body
+    $body = "Name: $name\r\n";
+    $body .= "Email: $email\r\n";
+    $body .= "Subject: $subject\r\n";
+    $body .= "Message:\r\n$message";
 
-        // Sender and recipient
-        $mail->setFrom($email, $name);
-        $mail->addAddress('pausantanapi2@gmail.com');
-
-        // Email content
-        $mail->isHTML(false);
-        $mail->Subject = "Contact Form Submission: $subject";
-        $mail->Body = "Name: $name\r\nEmail: $email\r\nSubject: $subject\r\nMessage:\r\n$message";
-
-        // Send email
-        if ($mail->send()) {
-            echo 'Thank you for contacting me!';
-        } else {
-            echo 'Oops! An error occurred. Error message: ' . $mail->ErrorInfo;
-        }
-    } catch (Exception $e) {
-        echo 'Oops! An error occurred. Error message: ' . $e->getMessage();
+    // Send email
+    if (mail($to, $subject, $body, $headers)) {
+        echo 'Thank you for contacting me!';
+    } else {
+        echo 'Oops! An error occurred.';
     }
 }
 
 /**
  * Sanitize user input to prevent email injection and other security issues
  *
- * @param string|null $input The user input string to sanitize
+ * @param string $input The user input string to sanitize
  * @return string The sanitized input
  */
 function sanitizeInput($input)
 {
-    if (is_string($input)) {
-        $input = trim($input);
-        $input = stripslashes($input);
-        $input = htmlspecialchars($input);
-        return $input;
-    }
-    return '';
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    return $input;
 }
 ?>
