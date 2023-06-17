@@ -1,13 +1,10 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data and sanitize inputs
-    $name = sanitizeInput($_POST['name']);
-    $email = sanitizeInput($_POST['email']);
-    $subject = sanitizeInput($_POST['subject']);
-    $message = sanitizeInput($_POST['message']);
+    $name = isset($_POST['name']) ? sanitizeInput($_POST['name']) : '';
+    $email = isset($_POST['email']) ? sanitizeInput($_POST['email']) : '';
+    $subject = isset($_POST['subject']) ? sanitizeInput($_POST['subject']) : '';
+    $message = isset($_POST['message']) ? sanitizeInput($_POST['message']) : '';
 
     // Validate inputs
     if (empty($name) || empty($email) || empty($subject) || empty($message)) {
@@ -17,21 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Set recipient email and prepare email headers
     $to = 'pausantanapi2@gmail.com';
-    $subject = "Contact Form Submission: $subject";
+    $emailSubject = "Contact Form Submission: $subject";
     $headers = "From: $name <$email>\r\n";
     $headers .= "Reply-To: $name <$email>\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
     // Prepare email body
-    $body = "Name: $name\r\n";
-    $body .= "Email: $email\r\n";
-    $body .= "Subject: $subject\r\n";
-    $body .= "Message:\r\n$message";
+    $emailBody = "Name: $name\r\n";
+    $emailBody .= "Email: $email\r\n";
+    $emailBody .= "Subject: $subject\r\n";
+    $emailBody .= "Message:\r\n$message";
 
     // Send email
-    if (mail($to, $subject, $body, $headers)) {
-        echo 'Thank you for contacting us!';
+    if (mail($to, $emailSubject, $emailBody, $headers)) {
+        echo 'Thank you for contacting me!';
     } else {
         echo 'Oops! An error occurred.';
     }
@@ -40,14 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 /**
  * Sanitize user input to prevent email injection and other security issues
  *
- * @param string $input The user input string to sanitize
+ * @param string|null $input The user input string to sanitize
  * @return string The sanitized input
  */
 function sanitizeInput($input)
 {
-    $input = trim($input);
-    $input = stripslashes($input);
-    $input = htmlspecialchars($input);
-    return $input;
+    if (is_string($input)) {
+        $input = trim($input);
+        $input = stripslashes($input);
+        $input = htmlspecialchars($input);
+        return $input;
+    }
+    return '';
 }
 ?>

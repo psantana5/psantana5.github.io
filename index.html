@@ -316,22 +316,24 @@
                         </div>
                     </div>
                     <div class="right-contact">
-                        <form action="files/submit-contact-form.php" method="post" class="contact-form" >
-                          <div class="input-control i-c-2">
-                            <input type="text" required placeholder="Name">
-                            <input type="email" required placeholder="Email">
-                          </div>
-                          <div class="input-control">
-                            <input type="text" required placeholder="Subject">
-                          </div>
-                          <div class="input-control">
-                            <textarea name="" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
-                          </div>
-                          <div class="submit-btn">
-                            <input type="submit" class="main-btn" value="Submit">
-                          </div>
+                        <form method="post" action="index.php" class="contact-form">
+                            <div class="input-control i-c-2">
+                                <input type="text" name="name" required placeholder="Name">
+                                <input type="email" name="email" required placeholder="Email">
+                            </div>
+                            <div class="input-control">
+                                <input type="text" name="subject" required placeholder="Subject">
+                            </div>
+                            <div class="input-control">
+                                <textarea name="message" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                            </div>
+                            <div class="submit-btn">
+                                <input type="submit" class="main-btn" value="Submit">
+                            </div>
                         </form>
-                      </div>
+                    </div>
+                    </div>
+                    
                 </div>
             </div>
         </section>
