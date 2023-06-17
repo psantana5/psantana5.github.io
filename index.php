@@ -1,4 +1,11 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'C:\Users\msali\Downloads\PHPMailer-master\src\Exception.php';
+require 'C:\Users\msali\Downloads\PHPMailer-master\src\PHPMailer.php';
+require 'C:\Users\msali\Downloads\PHPMailer-master\src\SMTP.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data and sanitize inputs
     $name = isset($_POST['name']) ? sanitizeInput($_POST['name']) : '';
@@ -12,25 +19,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Set recipient email and prepare email headers
-    $to = 'pausantanapi2@gmail.com';
-    $emailSubject = "Contact Form Submission: $subject";
-    $headers = "From: $name <$email>\r\n";
-    $headers .= "Reply-To: $name <$email>\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    // Create a new PHPMailer instance
+    $mail = new PHPMailer(true);
 
-    // Prepare email body
-    $emailBody = "Name: $name\r\n";
-    $emailBody .= "Email: $email\r\n";
-    $emailBody .= "Subject: $subject\r\n";
-    $emailBody .= "Message:\r\n$message";
+    try {
+        // SMTP configuration
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'pausantanapi2@gmail.com'; // Your Gmail email address
+        $mail->Password = 'safe password :)'; // Your Gmail password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
 
-    // Send email
-    if (mail($to, $emailSubject, $emailBody, $headers)) {
-        echo 'Thank you for contacting me!';
-    } else {
-        echo 'Oops! An error occurred.';
+        // Sender and recipient
+        $mail->setFrom($email, $name);
+        $mail->addAddress('pausantanapi2@gmail.com');
+
+        // Email content
+        $mail->isHTML(false);
+        $mail->Subject = "Contact Form Submission: $subject";
+        $mail->Body = "Name: $name\r\nEmail: $email\r\nSubject: $subject\r\nMessage:\r\n$message";
+
+        // Send email
+        if ($mail->send()) {
+            echo 'Thank you for contacting me!';
+        } else {
+            echo 'Oops! An error occurred. Error message: ' . $mail->ErrorInfo;
+        }
+    } catch (Exception $e) {
+        echo 'Oops! An error occurred. Error message: ' . $e->getMessage();
     }
 }
 
