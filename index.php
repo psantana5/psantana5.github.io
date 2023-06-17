@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data and sanitize inputs
     $name = sanitizeInput($_POST['name']);
@@ -10,13 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = sanitizeInput($_POST['message']);
 
     // Validate inputs
-    if (empty($name) || empty($email) || empty($subject) || empty($message)) {
-        echo 'Please fill in all the required fields.';
-        exit;
+    $requiredFields = array('name', 'email', 'subject', 'message');
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            echo 'Please fill in all the required fields.';
+            exit;
+        }
     }
 
     // Set recipient email and prepare email headers
-    $to = 'pausantanapi2@gmail.com';
+    $to = 'pausantanapi2@outlook.es';
     $subject = "Contact Form Submission: $subject";
     $headers = "From: $name <$email>\r\n";
     $headers .= "Reply-To: $name <$email>\r\n";
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Send email
     if (mail($to, $subject, $body, $headers)) {
-        echo 'Thank you for contacting us!';
+        echo 'Thank you for contacting me!';
     } else {
         echo 'Oops! An error occurred.';
     }
@@ -47,7 +47,7 @@ function sanitizeInput($input)
 {
     $input = trim($input);
     $input = stripslashes($input);
-    $input = htmlspecialchars($input);
+    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     return $input;
 }
 ?>
