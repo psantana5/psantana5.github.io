@@ -12,7 +12,9 @@ A personal portfolio website to showcase my skills, projects, and achievements. 
 
 - HTML
 - CSS
+- SCSS
 - JavaScript
+- PHP
 
 ## Usage 🚀
 
