@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEMBRHFN1L"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-GEMBRHFN1L');
-    </script>
     <title>Portfolio</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -228,6 +219,46 @@
                         </div>
                     </div>
                 </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port5.jpg" alt="Net Sniffer">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="https://github.com/psantana5/net-sniffer" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port6.jpg" alt="Hash Cracker">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="https://github.com/psantana5/hash-cracker" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port7.jpg" alt="Reverse Shell">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="https://github.com/psantana5/reverse-shell" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
         <section class="container" id="blogs">
@@ -237,7 +268,7 @@
                 </div>
                 <div class="blogs">
                     <div class="blog">
-                        <img src="img/port6.png" alt="">
+                        <img src="img/port6.png" alt="" >
                         <div class="blog-text">
                             <h4>
                                 <a href ="https://www.epiamatarosmx19.cat/">Cybershield Blog</a>
@@ -250,6 +281,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </section>
         <section class="container contact" id="contact">
@@ -321,33 +353,26 @@
                                 <a href="https://www.youtube.com/channel/UCwl2gpz-LhxIo2kX7d-xgdg" target="_blank">
                                     <i class="fab fa-youtube"></i>
                                 </a>
-                                <a href="https://www.linkedin.com/in/pau-santana-b12038225/" target="_blank">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="right-contact">
-                        <form class="contact-form">
-                            <div class="input-control i-c-2">
-                                <input type="text" name="Name" required placeholder="Name">
-                                <input type="email" name="Email" required placeholder="Email">
-                            </div>
-                            <div class="input-control">
-                                <input type="text" name="Subject" required placeholder="Subject">
-                            </div>
-                            <div class="input-control">
-                                <textarea name="Message" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
-                            </div>
-                            <div class="submit-btn">
-                                <button type="submit" class="main-btn">
-                                    <span class="btn-text">Submit</span>
-                                    <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
-                                </button>
-                            </div>
+                        <form method="post" action="index.php" class="contact-form" >
+                          <div class="input-control i-c-2">
+                            <input type="text" required placeholder="Name">
+                            <input type="email" required placeholder="Email">
+                          </div>
+                          <div class="input-control">
+                            <input type="text" required placeholder="Subject">
+                          </div>
+                          <div class="input-control">
+                            <textarea name="" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                          </div>
+                          <div class="submit-btn">
+                            <input type="submit" class="main-btn" value="Submit">
+                          </div>
                         </form>
-                    </div>
-                    </div>  
+                      </div>
                 </div>
             </div>
         </section>
@@ -374,6 +399,5 @@
         <i class="fas fa-adjust"></i>
     </div>
     <script src="app.js"></script>
-    <script id="ratufa_loader" src="https://www.ratufa.io/c/ld.js?f=wt750nq1&n=n1.ratufa.io"></script>
 </body>
 </html>
